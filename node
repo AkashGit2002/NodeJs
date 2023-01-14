@@ -1,0 +1,68 @@
+// const http= require('http');
+
+// const fs=require('fs');
+
+// const port=process.env.port || 3000;
+
+// var server= http.createServer((req,res)=>{
+// 	if(req.url=="/about"){
+// 		res.end("Hello from aboutus page");
+// 	}
+// 	else if(req.url=="/contact"){
+// 		res.end("Hello from contact page");
+// 	}
+// 	else if(req.url=="/userapi"){
+// 		fs.readFile(`${__dirname}/User/api.json`,"utf-8",(err,data)=>{
+// 			const obj=JSON.parse(data);
+// 			res.writeHead(200,{'content-type:'text/html'});
+// 			res.end(obj[0].title);
+
+// 		})
+// 	}
+// 	else{
+// 		res.writeHead(404,"Sorry Page is not found", {'Content-Type': 'text/plain'})
+// 	}
+// });
+
+// server.listen(port,(err)=>{
+// 	if(!err){
+// 		console.warn(`Server is lisenning at ${port}`);
+// 	}
+// 	else{
+// 		console.warn(`Error ${err}`);
+// 	}
+// });
+
+const fs=require('fs');
+
+const port=process.env.port || 3000;
+
+const http=require('http');
+
+const server=http.createServer((req,res)=>{
+	const fstream = fs.createReadStream("text.txt");
+	fstream.pipe(res);
+
+	// fstream.on("data", (chunk) => {
+	// 	res.write(chunk);
+	// });
+
+	// fstream.on("end", () => {
+	// 	res.end();
+	// });
+
+	// fstream.on("error", (err) => {
+	// 	console.log(err);
+	// 	res.end("file is not found");
+	// });
+
+});
+
+server.listen(port,(err)=>{
+	if(!err){
+		console.warn(`Server is lisening ${port}`);
+	}
+	else{
+		console.warn(`Error${err}`);
+	}
+})
